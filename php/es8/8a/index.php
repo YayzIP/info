@@ -8,17 +8,9 @@
 </head>
 
 <body>
-    <?php
-
-    session_start();
-
-    if (!isset($_SESSION["contatore"])) {
-        $_SESSION["contatore"] = 0;
-    }
-
-    $_SESSION["contatore"]++;       
-
-    ?>
+    <form action="visite.php" method="POST">
+        <button type="submit">Aggiungi Visita</button>
+    </form>
 </body>
 
 </html>
