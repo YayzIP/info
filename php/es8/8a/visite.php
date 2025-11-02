@@ -1,38 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+session_start();
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+if (isset($_POST["azzera"])) {
+    session_destroy();
+    header("Location: index.php");
+    exit;
+}
+// Se non esiste il contatore, lo inizializzo
+if (!isset($_SESSION["contatore"])) {
+    $_SESSION["contatore"] = 0;
+}
+$_SESSION["contatore"]++;
 
-<body>
-    <?php
+// Salvo o mostro l'ultima visita
+$_SESSION["ultima_visita"] = date("d/m/Y H:i:s");
 
-    session_start();
-
-    if (isset($_POST["azzera"])) {
-        session_unset();
-    }
-
-    if (!isset($_SESSION["contatore"])) {
-        $_SESSION["contatore"] = 0;
-    }
-
-    $_SESSION["contatore"]++;
-
-    echo "visite: " . $_SESSION["contatore"];
-
-    ?>
-
-    <br>
-    <a href="index.php">Home</a>
-
-    <form method="post">
-        <input type="hidden" name="azzera">
-        <button type="submit">Azzera</button>
-    </form>
-</body>
-
-</html>
+header("Location: index.php");
+exit;
