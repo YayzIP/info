@@ -7,7 +7,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         header("Location: carrello.php");
         exit;
     } else if ($action === "confirm") {
-
+        session_unset();
+        header("Location: thanks.php");
+        exit;
     }
 }
 ?>
