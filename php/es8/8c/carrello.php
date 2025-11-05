@@ -70,7 +70,7 @@ function contains($id){
         <?php
         $tot = 0;
         foreach ($_SESSION["carrello"] as $prodotto) {
-            $tot += $prodotto["prodotto"]["prezzo"];
+            $tot += $prodotto["prodotto"]["prezzo"] * $count += $prodotto["qta"];
         }
         echo $tot . "€";
         ?>
