@@ -16,12 +16,28 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
 
     if (isset($prodotti[$id])) {
-        $_SESSION["carrello"][] = $prodotti[$id];
+
+        if (!contains($id)) {
+            $_SESSION["carrello"][] = ["id" => $id, "prodotto" => $prodotti[$id], "qta" => 1];
+        }
         header(header: "Location: prodotti.php");
         exit;
     }
 }
+
+// Aggiorna anche il carrello
+function contains($id){
+    foreach ($_SESSION["carrello"] as &$prodotto) {
+        if ($id === $prodotto["id"]) {
+            $prodotto["qta"]++;
+            return true;
+        }
+    }
+    return false;
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,23 +52,33 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     <ul>
         <?php foreach ($_SESSION["carrello"] as $prodotto): ?>
             <li>
-                <p><?= $prodotto["nome"] ?></p>
+                <p><?= $prodotto["prodotto"]["nome"] ?></p>
+                <p><?= $prodotto["qta"] ?></p>
             </li>
         <?php endforeach; ?>
     </ul>
-    <p><?= count($_SESSION["carrello"]) ?></p>
+    <p>
+        <?php
+        $count = 0;
+        foreach ($_SESSION["carrello"] as $prodotto) {
+            $count += $prodotto["qta"];
+        }
+        echo $count;
+        ?>
+    </p>
     <p>
         <?php
         $tot = 0;
         foreach ($_SESSION["carrello"] as $prodotto) {
-            $tot += $prodotto["prezzo"];
+            $tot += $prodotto["prodotto"]["prezzo"] * $count += $prodotto["qta"];
         }
         echo $tot . "€";
         ?>
     </p>
 
     <a href="checkout.php?action=clear">svuota carrello</a><br>
-    <a href="checkout.php?action=confirm">conferma ordine</a>
+    <a href="checkout.php?action=confirm">conferma ordine</a><br>
+    <a href="prodotti.php">Aggiungi altri prodotti</a>
 </body>
 
 </html>
