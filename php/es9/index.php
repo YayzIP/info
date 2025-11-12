@@ -4,6 +4,10 @@ if (!isset($_SESSION["user"])) {
     header("Location: login.php");
     exit;
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $result = $_GET['result'] ?? "";
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,26 +23,20 @@ if (!isset($_SESSION["user"])) {
 <body>
     <h1>Home Page</h1>
     <p>ciao <?= $_SESSION['user'] ?>!!!!!!!!</p>
+    <?php if ($result === 'success'): ?>
+        <p style="color: green;">Aggiunto con successo</p>
+    <?php elseif ($result === 'error'): ?>
+        <p style="color: red;">Errore: non disponibile</p>
+    <?php endif; ?>
 
     <button id="addTable">Aggiungi tavolo</button>
-    <button id="addComanda">Aggiungi comanda</button>
+    <a href="comanda.php"><button id="addComanda">Aggiungi comanda</button></a>
 
     <form action="addTable.php" style="display: none; margin-top: 20px;" method="POST">
         <label for="table">Tavolo</label>
         <input type="number" name="table" id="table" min="0" required>
         <input type="submit" value="Add">
     </form>
-
-    <form action="addComanda.php" style="display: none; margin-top: 20px;">
-        <label for="table">Tavolo</label>
-        <select name="table" id="table">
-            <?php foreach ($_SESSION["tavoli"] as $tavolo): ?>
-                <option value="<?= $tavolo ?>"><?= $tavolo ?></option>
-            <?php endforeach ?>
-        </select>
-    </form>
-
-
 
     <a href="logout.php" style="text-decoration: none;"><button id="logout">logout</button></a>
 
