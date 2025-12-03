@@ -21,8 +21,4 @@ function getData($fields)
     return $data;
 }
 
-/* if ($data['email'] !== '' && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-    $errors[] = 'Email non valida.';
-} */
-
 ?>

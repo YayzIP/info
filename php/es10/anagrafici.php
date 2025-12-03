@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     } else {
         $_SESSION['filled'] = 1;
-        header('Location: riepilogo.php', true, 303);
+        header('Location: contatti.php', true, 303);
         exit;
     }
 }
@@ -96,41 +96,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" id="nome" name="nome" required maxlength="255" <?php if (isset($_SESSION['form_data']['nome'])): ?> value="<?= $_SESSION['form_data']['nome'] ?>" <?php endif ?>><br><br>
 
             <label for="cognome">Cognome *</label><br>
-            <input type="text" id="cognome" name="cognome" required maxlength="255"><br><br>
+            <input type="text" id="cognome" name="cognome" required maxlength="255" <?php if (isset($_SESSION['form_data']['cognome'])): ?> value="<?= $_SESSION['form_data']['cognome'] ?>" <?php endif ?>><br><br>
 
             <label for="cf">Codice fiscale *</label><br>
-            <input type="text" id="cf" name="cf" required maxlength="16" minlength="16"
+            <input type="text" id="cf" name="cf" <?php if (isset($_SESSION['form_data']['cf'])): ?> value="<?= $_SESSION['form_data']['cf'] ?>" <?php endif ?> required maxlength="16" minlength="16"
                 pattern="^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$"
                 title="Inserisci un codice fiscale valido (16 caratteri)"><br><br>
 
             <label for="sesso">Sesso *</label><br>
             <select name="sesso" id="sesso" required>
-                <option value="M">Maschio</option>
-                <option value="F">Femmina</option>
+                <option value="M" <?php if (isset($_SESSION['form_data']['sesso']) && $_SESSION['form_data']['sesso'] == 'M'): ?>selected<?php endif ?>>Maschio</option>
+                <option value="F" <?php if (isset($_SESSION['form_data']['sesso']) && $_SESSION['form_data']['sesso'] == 'F'): ?>selected<?php endif ?>>Femmina</option>
             </select><br><br>
 
             <label for="data_nascita">Data di nascita *</label><br>
-            <input type="date" id="data_nascita" name="data_nascita" required><br><br>
+            <input type="date" id="data_nascita" name="data_nascita" <?php if (isset($_SESSION['form_data']['data_nascita'])): ?> value="<?= $_SESSION['form_data']['data_nascita'] ?>" <?php endif ?> required><br><br>
 
             <label for="luogo_nascita">Luogo di nascita *</label><br>
-            <input type="text" id="luogo_nascita" name="luogo_nascita" maxlength="80" required><br><br>
+            <input type="text" id="luogo_nascita" name="luogo_nascita" maxlength="80" <?php if (isset($_SESSION['form_data']['luogo_nascita'])): ?> value="<?= $_SESSION['form_data']['luogo_nascita'] ?>" <?php endif ?> required><br><br>
 
         </fieldset>
 
         <fieldset>
             <legend>Residenza</legend>
             <label for="indirizzo">Indirizzo *</label><br>
-            <input type="text" id="indirizzo" name="indirizzo" maxlength="255" required><br><br>
+            <input type="text" id="indirizzo" name="indirizzo" maxlength="255" <?php if (isset($_SESSION['form_data']['indirizzo'])): ?> value="<?= $_SESSION['form_data']['indirizzo'] ?>" <?php endif ?> required><br><br>
 
             <label for="citta">Città *</label><br>
-            <input type="text" id="citta" name="citta" maxlength="80" required><br><br>
+            <input type="text" id="citta" name="citta" maxlength="80" <?php if (isset($_SESSION['form_data']['citta'])): ?> value="<?= $_SESSION['form_data']['citta'] ?>" <?php endif ?> required><br><br>
 
             <label for="cap">CAP *</label><br>
-            <input type="text" id="cap" name="cap" pattern="[0-9]{5}" maxlength="5" title="Inserisci 5 cifre"
+            <input type="text" id="cap" name="cap" <?php if (isset($_SESSION['form_data']['cap'])): ?> value="<?= $_SESSION['form_data']['cap'] ?>" <?php endif ?> pattern="[0-9]{5}" maxlength="5" title="Inserisci 5 cifre"
                 required><br><br>
 
             <label for="provincia">Provincia (sigla) *</label><br>
-            <input type="text" id="provincia" name="provincia" maxlength="2" pattern="[A-Za-z]{2}"
+            <input type="text" id="provincia" name="provincia" <?php if (isset($_SESSION['form_data']['provincia'])): ?> value="<?= $_SESSION['form_data']['provincia'] ?>" <?php endif ?> maxlength="2" pattern="[A-Za-z]{2}"
                 title="Inserisci 2 lettere" required>
         </fieldset>
 
